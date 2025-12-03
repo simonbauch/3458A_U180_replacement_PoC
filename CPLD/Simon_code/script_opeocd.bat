@@ -1,0 +1,1 @@
+bin\openocd.exe -f um232h.cfg -c "adapter_khz 400" -c "transport select jtag" -c "jtag newtap ATF1504AS tap -irlen 3 -expected-id 0x0150403f" -c init -c "pin_keep.svf" -c "sleep 200" -c shutdown

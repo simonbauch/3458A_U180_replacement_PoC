@@ -1,0 +1,109 @@
+%SIGNAL
+PIN  37 =  CLK 
+PIN  23 =  ENR 
+PIN  27 =  ENS 
+PIN  15 =  LADSN 
+PIN  13 =  NR1 
+PIN  22 =  NR2 
+PIN  12 =  NS1 
+PIN  21 =  NS2 
+PIN  10 =  PR1 
+PIN  18 =  PR2 
+PIN  11 =  PS1 
+PIN  19 =  PS2 
+PIN  25 =  RUR 
+PIN  28 =  RUS 
+PIN  35 =  RUSN1 
+PIN  14 =  RUSN2 
+PIN  34 =  RUSN3 
+PIN  30 =  RUZ 
+PIN  33 =  SLA 
+PIN  31 =  SLB 
+PIN  20 =  ZERO 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+LADSN.d  =>
+    RUR & RUZ
+  # RUR & RUS
+  # RUS & RUZ
+
+LADSN.ck  =>
+    !CLK
+
+NR1.d  =>
+    ENR & !SLA
+
+NR1.ck  =>
+    !CLK
+
+NR2.d  =>
+    ENR & !SLB
+
+NR2.ck  =>
+    !CLK
+
+NS1.d  =>
+    ENS & !SLA
+
+NS1.ck  =>
+    !CLK
+
+NS2.d  =>
+    ENS & !SLB
+
+NS2.ck  =>
+    !CLK
+
+PR1.d  =>
+    ENR & SLA
+
+PR1.ck  =>
+    !CLK
+
+PR2.d  =>
+    ENR & SLB
+
+PR2.ck  =>
+    !CLK
+
+PS1.d  =>
+    ENS & SLA
+
+PS1.ck  =>
+    !CLK
+
+PS2.d  =>
+    ENS & SLB
+
+PS2.ck  =>
+    !CLK
+
+RUSN1.d  =>
+    RUR & !RUS & !RUZ
+
+RUSN1.ck  =>
+    !CLK
+
+RUSN2.d  =>
+    !RUR & !RUS & RUZ
+
+RUSN2.ck  =>
+    !CLK
+
+RUSN3.d  =>
+    !RUR & RUS & !RUZ
+
+RUSN3.ck  =>
+    !CLK
+
+ZERO.d  =>
+    !ENR & !ENS & !RUR & !RUS & !RUZ
+
+ZERO.ck  =>
+    !CLK
+
+%END

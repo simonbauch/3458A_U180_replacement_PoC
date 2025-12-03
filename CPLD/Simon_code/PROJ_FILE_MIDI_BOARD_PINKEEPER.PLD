@@ -1,0 +1,69 @@
+Name     U180 logic ;
+PartNo   U180 ;
+Date     21.06.2025 ;
+Revision 01 ;
+Designer MiDi ;
+Company   ;
+Assembly  ;
+Location  ;
+Device   f1502tqfp44;
+
+
+/* *************** INPUT PINS ******************** */
+PIN 23       = ENR;                         /*                                 */
+PIN 27       = ENS;                         /*                                 */
+PIN 33       = SLA;                         /*                                 */
+PIN 31       = SLB;                         /*                                 */
+PIN 25       = RUR;                         /*                                 */
+PIN 30       = RUZ;                         /*                                 */
+PIN 28       = RUS;                         /*                                 */
+PIN 37       = CLK;                         /* GCLK1                           /
+
+/* *************** OUTPUT PINS ******************** */
+PIN 34       = RUSN3;                       /* S0:  34 AC_AD                   */
+PIN 14       = RUSN2;                       /* S1:  14 AGND                    */
+PIN 35       = RUSN1;                       /* S2:  35 DC_AD                   */
+PIN 15       = LADSN;                       /* S3:  15 rundown ladder sum node */
+PIN 21       = NS2;                         /* S4:  21 negative RU speed ref2  */
+PIN 22       = NR2;                         /* S5:  22 negative RU resol ref2  */
+PIN 12       = NS1;                         /* S6:  12 negative RU speed ref1  */
+PIN 13       = NR1;                         /* S7:  13 negative RU resol ref1  */
+PIN 19       = PS2;                         /* S8:  19 positive RU speed ref2  */
+PIN 18       = PR2;                         /* S9:  18 positive RU resol ref2  */
+PIN 11       = PS1;                         /* S10: 11 positive RU speed ref1  */
+PIN 10       = PR1;                         /* S11: 10 positive RU resol ref1  */
+PIN 20       = ZERO;                        /* S17: 20 zero integrator check   */
+/* PIN        = NENR;                         /* inverted ENR - not connected   */
+/* PIN        = NENS;                         /* inverted ENS - not connected   */
+
+
+/* *************** CLOCK NET D-FF **************** */
+RUSN3.CK = !CLK;
+RUSN2.CK = !CLK;
+RUSN1.CK = !CLK;
+LADSN.CK = !CLK;
+NS2.CK   = !CLK;
+NR2.CK   = !CLK;
+NS1.CK   = !CLK;
+NR1.CK   = !CLK;
+PS2.CK   = !CLK;
+PR2.CK   = !CLK;
+PS1.CK   = !CLK;
+PR1.CK   = !CLK;
+ZERO.CK  = !CLK;
+
+/* *************** DECODER LOGIC ***************** */
+RUSN3.D  = !RUR & !RUZ & RUS;
+RUSN2.D  = !RUR & RUZ & !RUS;
+RUSN1.D  = RUR & !RUZ & !RUS;
+LADSN.D  = (RUR & RUZ) # (RUR & RUS) # (RUZ & RUS); 
+NS2.D    = ENS & !SLB;
+NR2.D    = ENR & !SLB;
+NS1.D    = ENS & !SLA;
+NR1.D    = ENR & !SLA;
+PS2.D    = ENS & SLB;
+PR2.D    = ENR & SLB;
+PS1.D    = ENS & SLA;
+PR1.D    = ENR & SLA;
+ZERO.D   = !ENR & !ENS & !RUR & !RUZ & !RUS;
+
